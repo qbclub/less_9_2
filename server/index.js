@@ -1,23 +1,33 @@
 const express = require('express');
 const cors = require('cors')
 const mongoClient = require("mongodb").MongoClient;
+
 const multer = require('multer')
-const upload = multer({
-    dest: "../public/uploads"
-});
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, '../uploads')
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now()+'.jpg')
+    }
+  })
+  
+  const upload = multer({ storage: storage })
+
 
 let database;
 let mongoUrl = "mongodb://127.0.0.1:27017/photofeed";
 
 const app = express()
 app.use(cors())
-app.use(express.static("../public"));
+app.use(express.static("../uploads"));
 
 
 app.post('/upload', [upload.single("image")], function (req, res) {
     mongoClient.connect(mongoUrl, function (err, client) {
         database = client.db("photofeed");
         let uploads = database.collection("uploads");
+
         uploads.insertOne({
             author: req.body.author,
             name: req.body.name,

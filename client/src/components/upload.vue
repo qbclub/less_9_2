@@ -4,7 +4,7 @@
       <v-row class="justify-center">
         <v-col class="col-md-6 ">
           <h2 class="text-center mb-6">Добавить фотографию</h2>
-          <v-form v-on:submit.prevent="upload">
+          <v-form v-on:submit.prevent="upload" enctype="multipart/form-data">
             <label for="fileInput" v-if="!previewed">
               <div class="d-flex flex-column text-center">
                 <v-icon large> mdi-camera </v-icon>

@@ -1,15 +1,17 @@
 <template>
   <v-container>
-    <v-row>
+    <v-row class="justify-center">
       <v-col
         v-for="(photo, index) in photos"
         :key="index"
-        class="col-12 col-md-4"
+        class=" col-12 col-md-4"
       >
-      <v-img :src="addImage()"></v-img>
+      <v-img   :src="addImage(photo.image)"></v-img>
+    
         {{ photo.name }}
       </v-col>
     </v-row>
+    
   </v-container>
 </template>
 
@@ -23,7 +25,7 @@ export default {
   },
   methods: {
     addImage: function (img) {
-      return require("../assets/6d80db2d008d82b7131a77e4bf4f7d75");
+      return require("/../uploads/" + img);
     },
   },
   mounted: function () {
@@ -31,6 +33,7 @@ export default {
     axios
       .get("http://localhost:3000/feed")
       .then(function (res) {
+        console.log(res.data);
         vm.photos = res.data;
       })
       .catch(function (err) {
