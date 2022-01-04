@@ -6,9 +6,10 @@
         :key="index"
         class=" col-12 col-md-4"
       >
-      <v-img   :src="addImage(photo.image)"></v-img>
+      <v-img v-if="photo.image"  :src="addImage(photo.image)"></v-img>
     
-        {{ photo.name }}
+       <p class="text-center text-h6">{{ photo.name }}</p> 
+       <p class="text-right">{{ photo.author }}</p> 
       </v-col>
     </v-row>
     
@@ -24,16 +25,16 @@ export default {
     };
   },
   methods: {
-    addImage: function (img) {
-      return require("/../uploads/" + img);
+    addImage:  function (img) {
+       return require("/../uploads/" + img);
     },
   },
-  mounted: function () {
+  mounted:  function () {
     let vm = this;
-    axios
+     axios
       .get("http://localhost:3000/feed")
       .then(function (res) {
-        console.log(res.data);
+        // console.log(res.data);
         vm.photos = res.data;
       })
       .catch(function (err) {

@@ -33,11 +33,9 @@ export default {
 
   data: () => ({
     links: [
-      { path: "/", name: "Index" },
-      { path: "/register", name: "Register" },
-      { path: "/login", name: "Login" },
-      { path: "/feed", name: "Feed" },
-      { path: "/upload", name: "Upload" },
+  
+      { path: "/feed", name: "Галерея" },
+      { path: "/", name: "Загрузить" },
     ],
   }),
 };
